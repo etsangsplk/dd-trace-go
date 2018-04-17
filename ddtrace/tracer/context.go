@@ -19,13 +19,13 @@ func ContextWithSpan(ctx context.Context, s Span) context.Context {
 // found, it returns nil.
 func SpanFromContext(ctx context.Context) Span {
 	if ctx == nil {
-		return nil
+		return new(ddtrace.NoopSpan)
 	}
 	v := ctx.Value(activeSpanKey)
 	if s, ok := v.(ddtrace.Span); ok {
 		return s
 	}
-	return nil
+	return new(ddtrace.NoopSpan)
 }
 
 // StartSpanFromContext returns a new span with the given operation name and options. If a span

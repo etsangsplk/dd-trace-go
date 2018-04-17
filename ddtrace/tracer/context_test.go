@@ -4,6 +4,7 @@ import (
 	"context"
 	"testing"
 
+	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace"
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/internal"
 
 	"github.com/stretchr/testify/assert"
@@ -24,9 +25,15 @@ func TestSpanFromContext(t *testing.T) {
 		ctx := ContextWithSpan(context.Background(), want)
 		assert.New(t).Equal(SpanFromContext(ctx), want)
 	})
-	t.Run("nil", func(t *testing.T) {
-		assert.Nil(t, SpanFromContext(context.Background()))
-		assert.Nil(t, SpanFromContext(nil))
+	t.Run("noop", func(t *testing.T) {
+		s := SpanFromContext(context.Background())
+		_, ok := s.(*ddtrace.NoopSpan)
+		assert.NotNil(t, s)
+		assert.True(t, ok)
+		s = SpanFromContext(nil)
+		_, ok = SpanFromContext(nil).(*ddtrace.NoopSpan)
+		assert.NotNil(t, s)
+		assert.True(t, ok)
 	})
 }
 
