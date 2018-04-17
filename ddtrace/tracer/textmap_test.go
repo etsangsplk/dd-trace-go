@@ -6,9 +6,8 @@ import (
 	"strconv"
 	"testing"
 
-	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/internal"
-
 	"github.com/stretchr/testify/assert"
+	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace"
 )
 
 func TestHTTPHeadersCarrierSet(t *testing.T) {
@@ -81,7 +80,7 @@ func TestTextMapPropagatorErrors(t *testing.T) {
 
 	err := propagator.Inject(&spanContext{}, 2)
 	assert.Equal(ErrInvalidCarrier, err)
-	err = propagator.Inject(internal.NoopSpanContext{}, TextMapCarrier(map[string]string{}))
+	err = propagator.Inject(ddtrace.NoopSpanContext{}, TextMapCarrier(map[string]string{}))
 	assert.Equal(ErrInvalidSpanContext, err)
 	err = propagator.Inject(&spanContext{}, TextMapCarrier(map[string]string{}))
 	assert.Equal(ErrInvalidSpanContext, err) // no traceID and spanID

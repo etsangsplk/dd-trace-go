@@ -3,9 +3,8 @@ package tracer
 import (
 	"testing"
 
-	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/internal"
-
 	"github.com/stretchr/testify/assert"
+	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace"
 )
 
 func TestRateSampler(t *testing.T) {
@@ -13,7 +12,7 @@ func TestRateSampler(t *testing.T) {
 	assert.True(NewRateSampler(1).Sample(newBasicSpan("test")))
 	assert.False(NewRateSampler(0).Sample(newBasicSpan("test")))
 	assert.False(NewRateSampler(0).Sample(newBasicSpan("test")))
-	assert.False(NewRateSampler(1).Sample(internal.NoopSpan{}))
+	assert.False(NewRateSampler(1).Sample(ddtrace.NoopSpan{}))
 }
 
 func TestRateSamplerFinishedSpan(t *testing.T) {

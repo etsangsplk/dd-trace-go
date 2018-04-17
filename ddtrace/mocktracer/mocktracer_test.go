@@ -21,7 +21,7 @@ func TestStart(t *testing.T) {
 
 func TestTracerStop(t *testing.T) {
 	Start().Stop()
-	if _, ok := internal.GlobalTracer.(*internal.NoopTracer); !ok {
+	if _, ok := internal.GlobalTracer.(*ddtrace.NoopTracer); !ok {
 		t.Fail()
 	}
 }

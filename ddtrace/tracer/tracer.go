@@ -69,7 +69,7 @@ func Start(opts ...StartOption) {
 // Stop stops the started tracer. Subsequent calls are valid but become no-op.
 func Stop() {
 	internal.GlobalTracer.Stop()
-	internal.GlobalTracer = &internal.NoopTracer{}
+	internal.GlobalTracer = &ddtrace.NoopTracer{}
 }
 
 // Span is an alias for ddtrace.Span. It is here to allow godoc to group methods returning

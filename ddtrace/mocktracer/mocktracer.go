@@ -45,7 +45,7 @@ type mocktracer struct {
 
 // Stop deactivates the mock tracer and sets the active tracer to a no-op.
 func (*mocktracer) Stop() {
-	internal.GlobalTracer = &internal.NoopTracer{}
+	internal.GlobalTracer = &ddtrace.NoopTracer{}
 	internal.Testing = false
 }
 

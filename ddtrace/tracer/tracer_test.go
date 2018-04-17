@@ -10,6 +10,7 @@ import (
 	"testing"
 	"time"
 
+	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace"
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/ext"
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/internal"
 
@@ -44,7 +45,7 @@ func TestTracerStart(t *testing.T) {
 		if _, ok := internal.GlobalTracer.(*tracer); ok {
 			t.Fail()
 		}
-		if _, ok := internal.GlobalTracer.(*internal.NoopTracer); !ok {
+		if _, ok := internal.GlobalTracer.(*ddtrace.NoopTracer); !ok {
 			t.Fail()
 		}
 		internal.Testing = false
